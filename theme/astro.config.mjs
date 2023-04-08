@@ -6,7 +6,7 @@ import lit from "@astrojs/lit";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://github.com/artistrydat/cards.github.io',
+  site: 'cards.github.io',
   // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
   sitemap: true,
   // Generate sitemap (set to "false" to disable)
