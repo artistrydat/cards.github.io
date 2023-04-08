@@ -1,0 +1,61 @@
+import { defineConfig } from 'astro/config'
+
+export default defineConfig({
+  site: 'https://astronaut.github.io',
+  base: '/my-repo',
+})
+site should be https://<YOUR_USERNAME>.github.io or https://my-custom-domain.com
+base should be your repository’s name starting with a forward slash, for example /my-repo. This is so that Astro understands your website’s root is /my-repo, rather than the default /.
+ NOTE
+
+Don’t set a base parameter if:
+
+Your repository is named <YOUR_USERNAME>.github.io.
+You’re using a custom domain.
+ CAUTION
+
+If you did not previously have a value for base set, and are only configuring this value so that you can deploy to GitHub, you must update your internal page links to now include your base.
+
+<a href="/my-repo/about">About</a>
+Create a new file in your project at .github/workflows/deploy.yml and paste in the YAML below.
+
+deploy.yml
+name: Deploy to GitHub Pages
+
+on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
+  push:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+  
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v3
+      - name: Install, build, and upload your site
+        uses: withastro/action@v0
+        with:
+            # path: . # The root location of your Astro project inside the repository. (optional)
+            # node-version: 16 # The specific version of Node that should be used to build your site. Defaults to 16. (optional)
+            package-manager: yarn # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
