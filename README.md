@@ -49,7 +49,7 @@ View a [live demo](https://odyssey-theme.littlesticks.site/) of the Odyssey Them
 2. View the [Customizing the Theme Guide](https://odyssey-theme.littlesticks.site/theme/customizing-odyssey)
 
 ## Usage
-
+no worries
 ```bash
 cd theme
 
