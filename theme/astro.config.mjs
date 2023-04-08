@@ -7,6 +7,8 @@ import lit from "@astrojs/lit";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://bucolic-churros-87f9e2.netlify.app',
+  site: 'https://artistrydat.github.io',
+  base: '/cards.github.io'
   // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
   sitemap: true,
   // Generate sitemap (set to "false" to disable)
